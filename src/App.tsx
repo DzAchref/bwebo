@@ -1,13 +1,13 @@
-import { Header } from "D:/BWEBO/src/components/Header";
-import { Hero } from "D:/BWEBO/src/components/Hero";
-import { Services } from "D:/BWEBO/src/components/Services";
-import { Portfolio } from "D:/BWEBO/src/components/Portfolio";
-import { About } from "D:/BWEBO/src/components/About";
-import { Testimonials } from "D:/BWEBO/src/components/Testimonials";
-import { Pricing } from "D:/BWEBO/src/components/Pricing";
-import { Contact } from "D:/BWEBO/src/components/Contact";
-import { Footer } from "D:/BWEBO/src/components/Footer";
-import "D:/BWEBO/src/styles/globals.css";
+import { Header } from "./components/Header";
+import { Hero } from "./components/Hero";
+import { Services } from "./components/Services";
+import { Portfolio } from "./components/Portfolio";
+import { About } from "./components/About";
+import { Testimonials } from "./components/Testimonials";
+import { Pricing } from "./components/Pricing";
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
+import "./styles/globals.css";
 
 export default function App() {
   return (
