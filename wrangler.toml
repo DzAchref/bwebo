@@ -1,0 +1,6 @@
+name = "bwebo"
+compatibility_date = "2025-12-31"
+
+# Tell Wrangler this is a static site
+[site]
+bucket = "./dist"
