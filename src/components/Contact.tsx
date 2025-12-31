@@ -103,8 +103,8 @@ export function Contact() {
 
   // Domain prices
   const domainPrices: { [key: string]: number } = {
-    ".com": 2500,
-    ".dz": 11250,
+    ".com": 8000,
+    ".dz": 31200,
   };
 
   // Calculate total price

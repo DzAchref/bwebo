@@ -1,6 +1,13 @@
 name = "bwebo"
 compatibility_date = "2025-12-31"
 
-[site]
-bucket = "./dist"
-entry-point = "workers-site"
+# Removed `[site]` to avoid conflict with deployments using the `--assets` flag.
+# If you want to deploy as a Workers Site instead, remove the `--assets` flag
+# from your deploy command and add these lines:
+# main = "workers-site/index.js"
+#
+# [site]
+# bucket = "./dist"
+
+# Worker routes
+routes = ["https://bwebo.me/*"]

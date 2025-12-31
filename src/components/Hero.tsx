@@ -1,7 +1,5 @@
-import image_93cec494f7b68d2ed0b6dff113b4e5f084f3cb7e from '../assets/logo.png';
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
-import bweboLogo from "../assets/logo.png";
 
 export function Hero() {
   const scrollToSection = (id: string) => {
@@ -19,23 +17,10 @@ export function Hero() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto relative">
-          <div className="absolute -left-8 xl:-left-16 top-0 hidden lg:block">
-            <img 
-              src={image_93cec494f7b68d2ed0b6dff113b4e5f084f3cb7e} 
-              alt="BWEBO" 
-              className="h-56 xl:h-64 2xl:h-72 w-auto mx-[29px] my-[0px] p-[0px] mt-[90px] mr-[18px] mb-[-1px] ml-[18px]"
-            />
-          </div>
+          {/* Logos removed */}
 
-          <div className="flex justify-center mb-8 lg:hidden">
-            <img 
-              src={bweboLogo} 
-              alt="BWEBO" 
-              className="h-40 w-auto"
-            />
-          </div>
-
-          <div className="text-center">
+          <div className="text-center relative">
+            {/* Background Logo removed */}
             <div className="mb-8">
               <div className="inline-flex items-center gap-2 bg-white border border-[#D4AF37]/30 rounded-full px-4 py-2 shadow-sm">
                 <Sparkles className="w-4 h-4 text-[#D4AF37]" />

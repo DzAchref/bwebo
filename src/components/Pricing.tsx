@@ -10,7 +10,6 @@ interface Package {
   deliveryTime: string;
   price: string;
   features: string[];
-  domainOptions: { type: string; price: string }[];
 }
 
 const packages: Package[] = [
@@ -27,10 +26,6 @@ const packages: Package[] = [
       "Contact form",
       "Basic SEO setup",
       "Fast and reliable delivery",
-    ],
-    domainOptions: [
-      { type: ".com", price: "2,500 DZD" },
-      { type: ".dz", price: "11,250 DZD" },
     ],
   },
   {
@@ -49,12 +44,13 @@ const packages: Package[] = [
       "Speed & security optimization",
       "Priority support",
     ],
-    domainOptions: [
-      { type: ".com", price: "2,500 DZD" },
-      { type: ".dz", price: "11,250 DZD" },
-    ],
   },
 ];
+
+const domainPrices = {
+  ".com": { firstYear: 8000, renewal: 14000 },
+  ".dz": { firstYear: 31200, renewal: 42000 },
+};
 
 export function Pricing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +66,6 @@ export function Pricing() {
     domain: "",
     message: "",
   });
-
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -133,12 +128,20 @@ export function Pricing() {
     const packagePrice = parseInt(selectedPackage.price.replace(/[^0-9]/g, ""));
     
     // Find domain price
-    const selectedDomain = selectedPackage.domainOptions.find(
-      (d) => d.type === formData.domain
-    );
-    const domainPrice = selectedDomain
-      ? parseInt(selectedDomain.price.replace(/[^0-9]/g, ""))
-      : 0;
+    const domainPrice = domainPrices[formData.domain as keyof typeof domainPrices]?.firstYear || 0;
+    
+    return packagePrice + domainPrice;
+  };
+
+  // Calculate renewal total
+  const calculateRenewalTotal = () => {
+    if (!selectedPackage || !formData.domain) return 0;
+    
+    // Parse package price (remove "DZD" and commas, then convert to number)
+    const packagePrice = parseInt(selectedPackage.price.replace(/[^0-9]/g, ""));
+    
+    // Find domain renewal price
+    const domainPrice = domainPrices[formData.domain as keyof typeof domainPrices]?.renewal || 0;
     
     return packagePrice + domainPrice;
   };
@@ -173,15 +176,6 @@ export function Pricing() {
                 <div className="text-4xl text-[#D4AF37] mb-1">{pkg.price}</div>
                 <div className="text-sm text-[#1F2933]/60 mb-4">Website Package</div>
                 
-                <div className="text-sm text-[#1F2933]/60 mb-2">Domain Options:</div>
-                <div className="space-y-2 mb-4">
-                  {pkg.domainOptions.map((domain, i) => (
-                    <div key={i} className="flex justify-between items-center bg-white/50 px-3 py-2 rounded-lg">
-                      <span className="text-[#1F2933]/80">{domain.type} domain</span>
-                      <span className="text-[#D4AF37]">{domain.price}</span>
-                    </div>
-                  ))}
-                </div>
                 
                 <div className="text-sm text-[#1F2933]/60">Delivery Time</div>
                 <div className="text-lg text-[#D4AF37]">{pkg.deliveryTime}</div>
@@ -197,6 +191,54 @@ export function Pricing() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Domain Subscription Section */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-4xl text-[#1F2933] mb-3">
+              Domain Subscription
+            </h3>
+            <div className="inline-block bg-[#D4AF37]/10 text-[#D4AF37] px-4 py-1 rounded-full text-sm font-medium">
+              Limited Time Promotion for First Time Purchase!
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* .com Domain */}
+            <div className="bg-white border-2 border-[#1F2933]/10 rounded-2xl p-6 hover:border-[#D4AF37] transition-colors relative overflow-hidden group">
+              <div className="text-4xl font-bold text-[#1F2933] mb-2">.com</div>
+              <p className="text-[#1F2933]/60 text-sm mb-6">The world's most popular domain extension</p>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-3 border-b border-[#1F2933]/5">
+                  <span className="text-[#1F2933]/70">First Time Purchase</span>
+                  <span className="text-[#D4AF37] font-bold text-lg">8,000 DZD<span className="text-xs font-normal text-[#1F2933]/50">/year</span></span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[#1F2933]/70">Renewal Fee</span>
+                  <span className="text-[#1F2933] font-medium">14,000 DZD<span className="text-xs font-normal text-[#1F2933]/50">/year</span></span>
+                </div>
+              </div>
+            </div>
+
+            {/* .dz Domain */}
+            <div className="bg-white border-2 border-[#1F2933]/10 rounded-2xl p-6 hover:border-[#D4AF37] transition-colors relative overflow-hidden group">
+              <div className="text-4xl font-bold text-[#1F2933] mb-2">.dz</div>
+              <p className="text-[#1F2933]/60 text-sm mb-6">Establish your local Algerian identity</p>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-3 border-b border-[#1F2933]/5">
+                  <span className="text-[#1F2933]/70">First Time Purchase</span>
+                  <span className="text-[#D4AF37] font-bold text-lg">31,200 DZD<span className="text-xs font-normal text-[#1F2933]/50">/year</span></span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[#1F2933]/70">Renewal Fee</span>
+                  <span className="text-[#1F2933] font-medium">42,000 DZD<span className="text-xs font-normal text-[#1F2933]/50">/year</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -338,11 +380,12 @@ export function Pricing() {
                       className="w-full px-4 py-3 bg-[#F4F4F4] border border-[#F4F4F4] rounded-xl focus:outline-none focus:border-[#D4AF37] transition-colors"
                     >
                       <option value="">Select your domain</option>
-                      {selectedPackage?.domainOptions.map((domain) => (
-                        <option key={domain.type} value={domain.type}>
-                          {domain.type} domain - {domain.price}
-                        </option>
-                      ))}
+                      <option value=".com">
+                        .com domain - {formatPrice(domainPrices[".com"].firstYear)} (First year promo)
+                      </option>
+                      <option value=".dz">
+                        .dz domain - {formatPrice(domainPrices[".dz"].firstYear)} (First year promo)
+                      </option>
                     </select>
                   </div>
 
@@ -361,28 +404,6 @@ export function Pricing() {
                     />
                   </div>
 
-                  {/* Price Breakdown */}
-                  {formData.domain && (
-                    <div className="bg-[#F4F4F4] rounded-xl p-4 space-y-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[#1F2933]/70">Website Package:</span>
-                        <span className="text-[#1F2933]">{selectedPackage?.price}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-[#1F2933]/70">Domain ({formData.domain}):</span>
-                        <span className="text-[#1F2933]">
-                          {selectedPackage?.domainOptions.find((d) => d.type === formData.domain)?.price}
-                        </span>
-                      </div>
-                      <div className="border-t border-[#1F2933]/10 pt-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-[#D4AF37]">Total Price:</span>
-                          <span className="text-2xl text-[#D4AF37]">{formatPrice(calculateTotal())}</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
                   {/* Delivery Time */}
                   <div>
                     <label className="block text-sm text-[#1F2933] mb-2">
@@ -395,6 +416,35 @@ export function Pricing() {
                       className="w-full px-4 py-3 bg-[#F4F4F4]/50 border border-[#F4F4F4] rounded-xl text-[#1F2933]/60"
                     />
                   </div>
+
+                  {/* Price Breakdown */}
+                  {formData.domain && (
+                    <div className="bg-[#F4F4F4] rounded-xl p-4 space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[#1F2933]/70">Website Package:</span>
+                        <span className="text-[#1F2933]">{selectedPackage?.price}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[#1F2933]/70">Domain ({formData.domain}):</span>
+                        <span className="text-[#1F2933]">
+                          {formatPrice(domainPrices[formData.domain as keyof typeof domainPrices]?.firstYear || 0)}
+                        </span>
+                      </div>
+                      <div className="border-t border-[#1F2933]/10 pt-3">
+                        <div className="flex justify-between items-start">
+                          <span className="text-[#D4AF37] pt-2">Total Price:</span>
+                          <div className="text-right">
+                            <div className="text-2xl text-[#D4AF37] font-bold">
+                              {formatPrice(calculateTotal())}
+                            </div>
+                            <div className="text-sm text-[#1F2933]/40 line-through">
+                              {formatPrice(calculateRenewalTotal())} (Renewal)
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Note */}
                   <p className="text-sm text-[#1F2933]/50 italic">
