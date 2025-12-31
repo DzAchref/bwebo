@@ -1,0 +1,15 @@
+  const handleOpenModal = (pkg: Package) => {
+    setSelectedPackage(pkg);
+    setIsModalOpen(true);
+    setIsSuccess(false);
+    setIsError(false);
+    setErrorMessage("");
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      businessType: "",
+      domain: "",
+      message: "",
+    });
+  };

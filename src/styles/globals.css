@@ -1,0 +1,57 @@
+@import "tailwindcss";
+/* Add Tailwind base/components/utilities so utility classes are generated */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Retain the rest of your custom variables and layers below */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #FFFFFF;
+  --foreground: #1F2933;
+  --card: #FFFFFF;
+  --card-foreground: #1F2933;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F2933;
+  --primary: #D4AF37;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F4F4F4;
+  --secondary-foreground: #1F2933;
+  --muted: #F4F4F4;
+  --muted-foreground: #6B7280;
+  --accent: #D4AF37;
+  --accent-foreground: #FFFFFF;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(31, 41, 51, 0.1);
+  --input: transparent;
+  --input-background: #F4F4F4;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #D4AF37;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  
+  /* BWEBO Custom Colors */
+  --gold: #D4AF37;
+  --gold-hover: #E6C866;
+  --charcoal: #1F2933;
+  --secondary-gray: #F4F4F4;
+}
+
+/* ... rest of your existing file unchanged ... */
